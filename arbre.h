@@ -1,5 +1,6 @@
 #ifndef ARBRE_H_INCLUDED
 #define ARBRE_H_INCLUDED
+#include "binarypath.h"
 
 typedef struct Arbre
 {
@@ -14,6 +15,7 @@ Arbre* create_arbre(Arbre *g,Arbre *d);
 void destruction_arbre(Arbre **n);
 int nb_noeud(Arbre *abr);
 int nb_feuille(Arbre *abr);
-void parcours_arbre_infixe(Arbre *abr);
+void parcours_arbre_infixe(Arbre *abr,BinaryPath *bp);
+int isFeuille(Arbre *abr);
 
 #endif // ARBRE_H_INCLUDED

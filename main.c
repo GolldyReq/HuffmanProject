@@ -4,6 +4,7 @@
 #include "arbre.h"
 #include "liste.h"
 #include "huffman.h"
+#include "binarypath.h"
 
 int main()
 {
@@ -43,7 +44,11 @@ int main()
 
     int a=nb_feuille(l->first->abr);
     printf("nombre de feuille : %d\n",a);
-    parcours_arbre_infixe(l->first->abr);
+    BinaryPath *bp=newBinaryPath();
+    parcours_arbre_infixe(l->first->abr,bp);
+
+
+    printf(";;;;;;;;;;;;;;;;;;;;\n%c\n",l->first->abr->droite->droite->droite->car);
 
     //Liberation de la memoire
     printf("avant suppr: %d\n",l->first->abr->freq);

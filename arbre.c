@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "arbre.h"
+#include "binarypath.h"
 
 
 Arbre* create_feuille(char c,int f)
@@ -39,7 +40,7 @@ int nb_noeud(Arbre *abr)
 
 int nb_feuille(Arbre *abr)
 {
-    if(abr->droite==NULL && abr->gauche==NULL)
+    if(isFeuille(abr))
     {
         printf("%c ->\n",abr->car);
         return 1;
@@ -50,18 +51,34 @@ int nb_feuille(Arbre *abr)
     }
 }
 
-void parcours_arbre_infixe(Arbre *abr)
+void parcours_arbre_infixe(Arbre *abr,BinaryPath *bp)
 {
     if(abr==NULL)
         return;
-    printf("Gauche\n");
-    parcours_arbre_infixe(abr->gauche);
-    printf("on remonte\n");
-    printf("%c\n",abr->car);
-    printf("Droite\n");
-    parcours_arbre_infixe(abr->droite);
-    printf("on remonte\n");
+    //printf("Gauche\n");
+    ajout_bits(bp,'0');
+    parcours_arbre_infixe(abr->gauche,bp);
+    //printf("on remonte\n");
+    enlever_bits(bp);
 
+    if(isFeuille(abr))
+    {
+        printf("feuille : %c -> ",abr->car);
+        afficher_BinaryPath(bp);
+    }
+    //printf("une feuille : %c\n",abr->car);
+    //printf("Droite\n");
+    ajout_bits(bp,'1');
+    parcours_arbre_infixe(abr->droite,bp);
+    enlever_bits(bp);
+    //printf("on remonte\n");
+
+}
+int isFeuille(Arbre *abr)
+{
+    if(abr->gauche==NULL && abr->droite==NULL)
+        return 1;
+    return 0;
 }
 
 void destruction_arbre(Arbre **abr)
