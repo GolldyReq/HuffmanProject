@@ -1,0 +1,70 @@
+# depslib dependency file v1.0
+1582128817 source:c:\users\adormoy2\desktop\algo\huffman_project\fic.c
+	<stdlib.h>
+	<stdio.h>
+	"fic.h"
+
+1582122682 c:\users\adormoy2\desktop\algo\huffman_project\fic.h
+	<stdio.h>
+	<stdlib.h>
+
+1582122682 source:c:\users\adormoy2\desktop\algo\huffman_project\fic.h
+	<stdio.h>
+	<stdlib.h>
+
+1582203839 source:c:\users\adormoy2\desktop\algo\huffman_project\main.c
+	<stdio.h>
+	<stdlib.h>
+	"fic.h"
+	"arbre.h"
+	"liste.h"
+	"huffman.h"
+
+1582201728 source:c:\users\adormoy2\desktop\algo\huffman_project\arbre.c
+	<stdlib.h>
+	<stdio.h>
+	"arbre.h"
+
+1582203964 c:\users\adormoy2\desktop\algo\huffman_project\arbre.h
+
+1582203852 source:c:\users\adormoy2\desktop\algo\huffman_project\arbre.h
+
+1582200711 source:c:\users\adormoy2\desktop\algo\huffman_project\liste.h
+	"arbre.h"
+	"element.h"
+
+1582200626 source:c:\users\adormoy2\desktop\algo\huffman_project\liste.c
+	<stdlib.h>
+	<stdio.h>
+	"liste.h"
+	"arbre.h"
+	"element.h"
+
+1582200711 c:\users\adormoy2\desktop\algo\huffman_project\liste.h
+	"arbre.h"
+	"element.h"
+
+1582200733 source:c:\users\adormoy2\desktop\algo\huffman_project\element.c
+	<stdlib.h>
+	<stdio.h>
+	"element.h"
+
+1582200711 c:\users\adormoy2\desktop\algo\huffman_project\element.h
+	"arbre.h"
+
+1582200056 source:c:\users\adormoy2\desktop\algo\huffman_project\huffman.c
+	<stdlib.h>
+	<stdio.h>
+	"huffman.h"
+	"liste.h"
+	"element.h"
+
+1582190722 c:\users\adormoy2\desktop\algo\huffman_project\huffman.h
+	"liste.h"
+
+1582200711 source:c:\users\adormoy2\desktop\algo\huffman_project\element.h
+	"arbre.h"
+
+1582190722 source:c:\users\adormoy2\desktop\algo\huffman_project\huffman.h
+	"liste.h"
+
