@@ -1,6 +1,0 @@
-#ifndef COMPRESS_H_INCLUDED
-#define COMPRESS_H_INCLUDED
-
-
-
-#endif // COMPRESS_H_INCLUDED
