@@ -1,7 +1,6 @@
 #ifndef BINARYPATH_H_INCLUDED
 #define BINARYPATH_H_INCLUDED
 
-
 typedef struct BinaryPath
 {
     char *Bcode;

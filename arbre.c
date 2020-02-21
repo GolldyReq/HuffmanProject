@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "arbre.h"
-#include "binarypath.h"
 
 
 Arbre* create_feuille(char c,int f)
@@ -51,14 +50,42 @@ int nb_feuille(Arbre *abr)
     }
 }
 
-void parcours_arbre_infixe(Arbre *abr,BinaryPath *bp)
+/*
+void parcours_arbre_infixe(Arbre *abr)
 {
     if(abr==NULL)
         return;
-    //printf("Gauche\n");
+    printf("Gauche\n");
+    parcours_arbre_infixe(abr->gauche);
+    printf("on remonte\n");
+    printf("%c\n",abr->car);
+    printf("Droite\n");
+    parcours_arbre_infixe(abr->droite);
+    printf("on remonte\n");
+}
+*/
+
+void parcours_infixe(Arbre *abr,FILE *f)
+{
+    if(abr==NULL)
+        return;
+    parcours_infixe(abr->gauche,f);
+    if(isFeuille(abr))
+        fprintf(f,"%c",abr->car);
+    parcours_infixe(abr->droite,f);
+}
+void ecrire_caractere(Arbre *abr,FILE *f)
+{
+    parcours_infixe(abr,f);
+    fprintf(f,"\n");
+}
+
+void parcours_arbre_infixe_bp(Arbre *abr,BinaryPath *bp)
+{
+    if(abr==NULL)
+        return;
     ajout_bits(bp,'0');
-    parcours_arbre_infixe(abr->gauche,bp);
-    //printf("on remonte\n");
+    parcours_arbre_infixe_bp(abr->gauche,bp);
     enlever_bits(bp);
 
     if(isFeuille(abr))
@@ -66,14 +93,11 @@ void parcours_arbre_infixe(Arbre *abr,BinaryPath *bp)
         printf("feuille : %c -> ",abr->car);
         afficher_BinaryPath(bp);
     }
-    //printf("une feuille : %c\n",abr->car);
-    //printf("Droite\n");
     ajout_bits(bp,'1');
-    parcours_arbre_infixe(abr->droite,bp);
+    parcours_arbre_infixe_bp(abr->droite,bp);
     enlever_bits(bp);
-    //printf("on remonte\n");
-
 }
+
 int isFeuille(Arbre *abr)
 {
     if(abr->gauche==NULL && abr->droite==NULL)

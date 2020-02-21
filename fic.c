@@ -4,7 +4,6 @@
 
 FILE* ouverture_fichier(char *file_name)
 {
-
     printf("Ouverture du fichier %s \n",file_name);
     FILE *f=fopen(file_name, "r+");
     if(f==NULL)
@@ -14,6 +13,18 @@ FILE* ouverture_fichier(char *file_name)
     }
     return f;
 
+}
+
+FILE* creation_fichier(char *file_name)
+{
+    printf("Ouverture du fichier %s \n",file_name);
+    FILE *f=fopen(file_name, "w");
+    if(f==NULL)
+    {
+        fprintf(stderr,"erreur lors de l'ouverture");
+        exit(-1);
+    }
+    return f;
 }
 
 void fermeture_fichier(FILE *fic)
@@ -45,3 +56,21 @@ void calcul_occurence(FILE *fic,int *tab)
     }
 
 }
+
+int nombre_caractere(FILE *f)
+{
+    rewind(f);
+    int compteur=0;
+    char c=fgetc(f);
+    while (c!=EOF)
+    {
+        compteur++;
+        c=fgetc(f);
+    }
+    return compteur;
+}
+void ecriture_taille(FILE *f,int *taille)
+{
+    fwrite(taille, sizeof(int), 4, f);
+}
+

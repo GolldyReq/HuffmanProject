@@ -1,8 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "huffman.h"
-#include "liste.h"
-#include "element.h"
 
 void construction_arbre_huffman(Liste *l)
 {
