@@ -21,3 +21,17 @@ void destruction_element(Element **e)
     free(*e);
 
 }
+
+///////////////////////////////////////////////////////
+
+THuffman_elt* create_elt(char c,BinaryPath *bp)
+{
+    THuffman_elt *elt=(THuffman_elt*)malloc(sizeof(THuffman_elt));
+    if(elt==NULL)
+        exit(-12);
+    elt->car=c;
+    elt->code.longueur=bp->longueur;
+    elt->code.Bcode=bp->Bcode;
+    elt->next=NULL;
+    return elt;
+}

@@ -20,7 +20,7 @@ void destruction_arbre(Arbre **n);
 int nb_noeud(Arbre *abr);
 int nb_feuille(Arbre *abr);
 //void parcours_arbre_infixe(Arbre *abr);
-void ecrire_caractere(Arbre *abr,FILE *f);
+
 void parcours_arbre_infixe_bp(Arbre *abr,BinaryPath *bp);
 int isFeuille(Arbre *abr);
 

@@ -51,3 +51,14 @@ void afficher_BinaryPath(BinaryPath *bp)
         printf("%c|",bp->Bcode[i]);
     printf("\n");
 }
+
+BinaryPath* copieBinaryPath(BinaryPath *bp)
+{
+    BinaryPath *code=(BinaryPath*)malloc(sizeof(BinaryPath));
+    if(code==NULL)
+        exit(-15);
+    code->longueur=bp->longueur;
+    for(int i=0;i<code->longueur;i++)
+        code->Bcode[i]=bp->Bcode[i];
+    return code;
+}

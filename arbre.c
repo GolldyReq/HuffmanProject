@@ -41,7 +41,7 @@ int nb_feuille(Arbre *abr)
 {
     if(isFeuille(abr))
     {
-        printf("%c ->\n",abr->car);
+        //printf("%c ->\n",abr->car);
         return 1;
     }
     else
@@ -65,20 +65,6 @@ void parcours_arbre_infixe(Arbre *abr)
 }
 */
 
-void parcours_infixe(Arbre *abr,FILE *f)
-{
-    if(abr==NULL)
-        return;
-    parcours_infixe(abr->gauche,f);
-    if(isFeuille(abr))
-        fprintf(f,"%c",abr->car);
-    parcours_infixe(abr->droite,f);
-}
-void ecrire_caractere(Arbre *abr,FILE *f)
-{
-    parcours_infixe(abr,f);
-    fprintf(f,"\n");
-}
 
 void parcours_arbre_infixe_bp(Arbre *abr,BinaryPath *bp)
 {
