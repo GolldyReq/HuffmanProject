@@ -128,8 +128,7 @@ void add_in_tab(T_huffman *th,char c,BinaryPath *bp)
     if(actuel==NULL)
     {
         th->first=elt;
-        printf("elt ajoute : %c ----> ",th->first->car);
-        afficher_BinaryPath(&th->first->code);
+        //afficher_BinaryPath(&th->first->code);
         return;
     }
     while(actuel->next!=NULL)

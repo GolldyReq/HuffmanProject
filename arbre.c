@@ -74,11 +74,11 @@ void parcours_arbre_infixe_bp(Arbre *abr,BinaryPath *bp)
     parcours_arbre_infixe_bp(abr->gauche,bp);
     enlever_bits(bp);
 
-    if(isFeuille(abr))
+    /*if(isFeuille(abr))
     {
-        printf("feuille : %c -> ",abr->car);
-        afficher_BinaryPath(bp);
-    }
+        //printf("feuille : %c -> ",abr->car);
+        //afficher_BinaryPath(bp);
+    }*/
     ajout_bits(bp,'1');
     parcours_arbre_infixe_bp(abr->droite,bp);
     enlever_bits(bp);
