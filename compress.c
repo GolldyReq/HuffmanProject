@@ -25,8 +25,6 @@ void compress_file(char *file){
 
     //Tableau d'occurence l'indice du tableau
     //représente la lettre et la valeur sa fréquence d'appartion
-    //on ne prend en compte que les caractére compris entre l'espace (32)
-    //jusqu'au tilt (~) (126)
     int occurence[128];
     for(int i=0;i<128;i++)
         occurence[i]=0;
@@ -36,7 +34,7 @@ void compress_file(char *file){
     //et de la liste chainé trié par fréquence de ces arbres
     Liste *l=NULL;
     l=create_liste();
-    for(int i=32;i<126;i++)
+    for(int i=0;i<126;i++)
     {
         if(occurence[i]!=0)
             add_in_initial_liste(l,(char)i,occurence[i]);

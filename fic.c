@@ -165,13 +165,16 @@ void ecrire_binary_path(char c,T_huffman *th,FILE *outfile,unsigned char *buffer
                 if(*taille==8)
                    {
                         printf("vider buffer : ");
+                        /*
                         for (int i = 0; i < 8; i++) {
                             int bit = *buffer >> 7;
                             fprintf(outfile,"%u", bit);
                             *buffer = *buffer << 1;
                         }
+                        */
                         //Tester fwrite pour l'opti
-                        //fwrite(buffer,1,1,outfile);
+                        fwrite(buffer,1,1,outfile);
+                        //fwrite(buffer,sizeof(*buffer),sizeof(unsigned char),outfile);
                         *buffer=0;
                         *taille=0;
                    }
@@ -194,14 +197,20 @@ void compresser_texte(FILE *entry,T_huffman *th,FILE *outfile)
         c=fgetc(entry);
     }
     //Ecrire ce qu'il reste dans le buffer et le vider
+
+        /*
         for (int i = 0; i < 8; i++) {
             int bit = buffer >> 7;
-            //Ligne a remplacer
+            //Ligne a remplacer //
             if(taille_buffer==2)
                 fprintf(outfile,"%u",bit);
             else
                 taille_buffer--;
             buffer = buffer << 1;
         }
-        //fwrite(&buffer,1,1,outfile);
+        */
+        buffer=(buffer<<5);
+        fwrite(&buffer,1,1,outfile);
+        //Il reste des 0 "en trop" placé a la fin du fichier
+        //Mais ils pésent moins d'un octet -> on les laisse
 }
