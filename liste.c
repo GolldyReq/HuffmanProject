@@ -16,6 +16,7 @@ Liste* create_liste()
 void add_in_initial_liste(Liste *l,char c,int f)
 {
     Arbre *abr=create_feuille(c,f);
+    printf("ajout du caractere : %d\n",c);
     add_in_liste(l,abr);
 }
 
@@ -84,7 +85,10 @@ void afficher_liste(Liste *l)
     Element *e=l->first;
     while(e!=NULL)
     {
-        printf("%c : %d -> \n",e->abr->car,e->abr->freq);
+        if((int)e->abr->car<32)
+            printf("SP : %d -> \n",e->abr->freq);
+        else
+            printf("%c : %d -> \n",e->abr->car,e->abr->freq);
         e=e->next;
     }
 }
@@ -144,7 +148,10 @@ void afficher_tableau_huffman(T_huffman *th)
     actuel=th->first;
     while(actuel!=NULL)
     {
-        printf("table huffman : %c -----> ",actuel->car);
+        if((int)actuel->car<32)
+            printf("table huffman : SP -----> ");
+        else
+            printf("table huffman : %c -----> ",actuel->car);
         afficher_BinaryPath(&actuel->code);
         actuel=actuel->next;
     }

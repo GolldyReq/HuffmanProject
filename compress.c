@@ -34,11 +34,14 @@ void compress_file(char *file){
     //et de la liste chainé trié par fréquence de ces arbres
     Liste *l=NULL;
     l=create_liste();
-    for(int i=0;i<126;i++)
+    for(int i=0;i<128;i++)
     {
         if(occurence[i]!=0)
             add_in_initial_liste(l,(char)i,occurence[i]);
     }
+
+    afficher_liste(l);
+
     //construction de l'arbre de Huffman
     construction_arbre_huffman(l);
     BinaryPath *bp=newBinaryPath();
@@ -59,7 +62,7 @@ void compress_file(char *file){
     tableau_h=create_table();
     BinaryPath *pb=newBinaryPath();
     creation_table_huffman(l->first->abr,tableau_h,pb);
-    //afficher_tableau_huffman(tableau_h);
+    afficher_tableau_huffman(tableau_h);
     compresser_texte(fic,tableau_h,f);
 
     //Liberation de la memoire

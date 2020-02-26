@@ -131,13 +131,14 @@ void ecriture_parcours(Arbre *abr,FILE *f)
 
 void ecrire_binary_path(char c,T_huffman *th,FILE *outfile,unsigned char *buffer,int *taille)
 {
+    //Gestion majuscule
+    if((int)c>64 && (int)c<91)
+        c=c+32;
     THuffman_elt *actuel = th->first;
-    int trouve=0;
-    while(actuel!=NULL || trouve==0)
+    while(actuel!=NULL)
     {
         if(actuel->car==c)
         {
-            trouve=1;
             for(int i=0;i<actuel->code.longueur;i++)
             {
                 if(actuel->code.Bcode[i]=='1')
@@ -167,11 +168,13 @@ void compresser_texte(FILE *entry,T_huffman *th,FILE *outfile)
     char c=fgetc(entry);
     while(c!=EOF)
     {
+        printf("%c",c);
         ecrire_binary_path(c,th,outfile,&buffer,&taille_buffer);
         c=fgetc(entry);
+
     }
     //Ecrire ce qu'il reste dans le buffer et le vider
-    buffer=(buffer<<5);
+    buffer=(buffer<<8-taille_buffer);
     fwrite(&buffer,1,1,outfile);
     //Il reste des 0 "en trop" placé a la fin du fichier
     //Mais ils pésent moins d'un octet -> on les laisse
