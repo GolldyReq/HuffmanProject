@@ -27,7 +27,7 @@ void traduction_bp(T_huffman *th,BinaryPath *binaire,char* nb)
     BinaryPath *mot=newBinaryPath();
     int lettre_trouve=0;
     int i=0;
-    printf("NOMBRE DE LETTRE A TROUVER : %d\n",objectif);
+    //printf("NOMBRE DE LETTRE A TROUVER : %d\n",objectif);
     while(i<binaire->longueur)
     {
         if(lettre_trouve<objectif)
@@ -77,8 +77,8 @@ void decompress_file(char *file)
     nb_feuille=(char*)malloc(3*sizeof(char));
     fgets(nb_caractere_total,8,fic);
     fgets(nb_feuille,3,fic);
-    printf("nb de caractere au total : %s\n",nb_caractere_total);
-    printf("nb de feuille : %s\n",nb_feuille);
+    //printf("nb de caractere au total : %s\n",nb_caractere_total);
+    //printf("nb de feuille : %s\n",nb_feuille);
 
     fseek(fic,2,SEEK_CUR);
 
@@ -93,22 +93,22 @@ void decompress_file(char *file)
         c[strlen(c)-1]=(char)10;
         char d[atoi(nb_feuille)];
         fgets(d,128,fic);
-        for(int i=0;i<strlen(d);i++)
-            printf("-->%d",d[i]);
+        //for(int i=0;i<strlen(d);i++)
+            //printf("-->%d",d[i]);
         strcat(c,d);
         c[strlen(c)-2]='\0';
     }
 
-    printf("voici les caractere lu :%s\n",c);
-    printf("taille lu :%d\n",strlen(c));
-    for(int i=0;i<strlen(c);i++)
-        printf("->%d",c[i]);
+    //printf("voici les caractere lu :%s\n",c);
+    //printf("taille lu :%d\n",strlen(c));
+    //for(int i=0;i<strlen(c);i++)
+        //printf("->%d",c[i]);
 
     printf("\n");
 
     char *line=(char*)malloc(500*sizeof(char));
     fgets(line,500,fic);
-    printf("Chemin arbre :::: %s",line);
+    //printf("Chemin arbre :::: %s",line);
     BinaryPath *chemin_arbre=newBinaryPath();
     for(int i=0;i<strlen(line)-1;i++)
     {

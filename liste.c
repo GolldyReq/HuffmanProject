@@ -16,7 +16,7 @@ Liste* create_liste()
 void add_in_initial_liste(Liste *l,char c,int f)
 {
     Arbre *abr=create_feuille(c,f);
-    printf("ajout du caractere : %d\n",c);
+    //printf("ajout du caractere : %d\n",c);
     add_in_liste(l,abr);
 }
 

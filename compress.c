@@ -40,7 +40,7 @@ void compress_file(char *file){
             add_in_initial_liste(l,(char)i,occurence[i]);
     }
 
-    afficher_liste(l);
+    //afficher_liste(l);
 
     //construction de l'arbre de Huffman
     construction_arbre_huffman(l);
@@ -62,7 +62,7 @@ void compress_file(char *file){
     tableau_h=create_table();
     BinaryPath *pb=newBinaryPath();
     creation_table_huffman(l->first->abr,tableau_h,pb);
-    afficher_tableau_huffman(tableau_h);
+    //afficher_tableau_huffman(tableau_h);
     compresser_texte(fic,tableau_h,f);
 
     //Liberation de la memoire

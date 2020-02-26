@@ -168,7 +168,7 @@ void compresser_texte(FILE *entry,T_huffman *th,FILE *outfile)
     char c=fgetc(entry);
     while(c!=EOF)
     {
-        printf("%c",c);
+        //printf("%c",c);
         ecrire_binary_path(c,th,outfile,&buffer,&taille_buffer);
         c=fgetc(entry);
 

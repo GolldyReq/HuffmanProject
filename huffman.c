@@ -51,7 +51,7 @@ void creation_table_huffman(Arbre *abr,T_huffman *th,BinaryPath *bp)
 
 void construction_depuis_bp(T_huffman *th,BinaryPath *chemin_arbre,BinaryPath *bp,char *c,int i)
 {
-    printf("longueur : %d\n",chemin_arbre->longueur);
+    //printf("longueur : %d\n",chemin_arbre->longueur);
 
     while(i<chemin_arbre->longueur)
     {
@@ -63,22 +63,21 @@ void construction_depuis_bp(T_huffman *th,BinaryPath *chemin_arbre,BinaryPath *b
             code=1;
 
             if(gauche)
-                {printf("on descend a gauche \n");ajout_bits(bp,'0');}
+                {ajout_bits(bp,'0');}
             else
-                {printf("on descend a droite \n");gauche=1;ajout_bits(bp,'1');}
+                {gauche=1;ajout_bits(bp,'1');}
         }
         else
         {
             if(code)
             {
                 //Feuille
-                afficher_BinaryPath(bp);
+                //afficher_BinaryPath(bp);
                 code=0;
                 add_in_tab(th,c[cpt],bp);
                 cpt++;
                 //add_in_table(bp,th)...
             }
-            printf("On remonte\n");
             enlever_bits(bp);
             gauche=0;
         }
