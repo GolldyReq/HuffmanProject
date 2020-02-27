@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "decompress.h"
 #include "binarypath.h"
 #include "liste.h"
@@ -27,7 +28,7 @@ void traduction_bp(T_huffman *th,BinaryPath *binaire,char* nb)
     BinaryPath *mot=newBinaryPath();
     int lettre_trouve=0;
     int i=0;
-    //printf("NOMBRE DE LETTRE A TROUVER : %d\n",objectif);
+    printf("NOMBRE DE LETTRE A TROUVER : %d\n",objectif);
     while(i<binaire->longueur)
     {
         if(lettre_trouve<objectif)
@@ -79,18 +80,22 @@ void decompress_file(char *file)
     fgets(nb_feuille,3,fic);
     //printf("nb de caractere au total : %s\n",nb_caractere_total);
     //printf("nb de feuille : %s\n",nb_feuille);
-
-    fseek(fic,2,SEEK_CUR);
+    if(atoi(nb_feuille)>=10)
+        fseek(fic,2,SEEK_CUR);
 
     char c[atoi(nb_feuille)];
     //remplacer par une boucle for en gerant le '\n'
 
     //Prendre des screens test pour expliquer dans le rapport
     fgets(c,128,fic);
-    if(strlen(c)<atoi(nb_feuille))
+    //if(strlen(c)<atoi(nb_feuille))
+    while(strlen(c)<atoi(nb_feuille))
     {
+        printf("avant : %d\n",strlen(c));
         c[strlen(c)-1]='\0';
-        c[strlen(c)-1]=(char)10;
+        printf("apres : %d\n",strlen(c));
+
+        //c[strlen(c)-1]=(char)10;
         char d[atoi(nb_feuille)];
         fgets(d,128,fic);
         //for(int i=0;i<strlen(d);i++)
@@ -98,7 +103,7 @@ void decompress_file(char *file)
         strcat(c,d);
         c[strlen(c)-2]='\0';
     }
-
+    printf("cece : %s",c);
     //printf("voici les caractere lu :%s\n",c);
     //printf("taille lu :%d\n",strlen(c));
     //for(int i=0;i<strlen(c);i++)
@@ -111,14 +116,12 @@ void decompress_file(char *file)
     //printf("Chemin arbre :::: %s",line);
     BinaryPath *chemin_arbre=newBinaryPath();
     for(int i=0;i<strlen(line)-1;i++)
-    {
         ajout_bits(chemin_arbre,line[i]);
-    }
 
 
 
-    //printf("\n\nchemin de l'arbre :");
-    //afficher_BinaryPath(chemin_arbre);
+    printf("\n\n chemin de l'arbre :");
+    afficher_BinaryPath(chemin_arbre);
 
     T_huffman *table_h=reconstruction_arbre(chemin_arbre,c);
     //afficher_tableau_huffman(table_h);

@@ -10,6 +10,12 @@ int code=0;
 
 void construction_arbre_huffman(Liste *l)
 {
+    // IF 1 SEULE ELT DANS LA LISTE DES LE DEBUT
+
+
+
+
+
     Element *e=l->first;
     //Tant qu'il y a au moins 2 elt dans la liste
     while(e->next!=NULL)

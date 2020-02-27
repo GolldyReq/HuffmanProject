@@ -28,6 +28,14 @@ int main(int nbarg,char **argv)
         fprintf(stderr,"veuillez saisir au moins 2 arguments\n");
         exit(-1);
     }
+
+    if(strcmp(argv[1],"both")==0)
+    {
+        compress_file(argv[2]);
+        decompress_file(argv[2]);
+        exit(3);
+    }
+
     if(strcmp(argv[1],"compress")!=0 && strcmp(argv[1],"decompress")!=0)
     {
         printf("%s\n",argv[1]);

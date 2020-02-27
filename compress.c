@@ -42,6 +42,7 @@ void compress_file(char *file){
 
     //afficher_liste(l);
 
+
     //construction de l'arbre de Huffman
     construction_arbre_huffman(l);
     BinaryPath *bp=newBinaryPath();
