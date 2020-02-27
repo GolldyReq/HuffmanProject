@@ -11,6 +11,7 @@ Liste* create_liste()
         exit(-4);
     l->first=NULL;
 }
+
 //construction de la liste initial
 //la liste est construite trié par ordre croissant en fonction de la frequence
 void add_in_initial_liste(Liste *l,char c,int f)

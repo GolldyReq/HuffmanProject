@@ -25,14 +25,12 @@ Arbre* create_arbre(Arbre *g, Arbre *d)
     abr->gauche=g;
     abr->droite=d;
     return abr;
-
 }
 
 int nb_noeud(Arbre *abr)
 {
     if(abr==NULL)
         return 0 ;
-
     else
         return (1+nb_noeud(abr->droite)+nb_noeud(abr->gauche));
 }
@@ -40,14 +38,9 @@ int nb_noeud(Arbre *abr)
 int nb_feuille(Arbre *abr)
 {
     if(isFeuille(abr))
-    {
-        //printf("%c ->\n",abr->car);
         return 1;
-    }
     else
-    {
         return (0+nb_feuille(abr->gauche)+nb_feuille(abr->droite));
-    }
 }
 
 /*

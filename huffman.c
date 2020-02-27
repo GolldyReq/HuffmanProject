@@ -55,15 +55,12 @@ void construction_depuis_bp(T_huffman *th,BinaryPath *chemin_arbre,BinaryPath *b
 
     while(i<chemin_arbre->longueur)
     {
-
-        //printf("i : %d \n",i);
-        //printf("code : %c\n",chemin_arbre->Bcode[i]);
         if(chemin_arbre->Bcode[i]=='0')
         {
             code=1;
 
             if(gauche)
-                {ajout_bits(bp,'0');}
+                ajout_bits(bp,'0');
             else
                 {gauche=1;ajout_bits(bp,'1');}
         }
@@ -72,11 +69,9 @@ void construction_depuis_bp(T_huffman *th,BinaryPath *chemin_arbre,BinaryPath *b
             if(code)
             {
                 //Feuille
-                //afficher_BinaryPath(bp);
                 code=0;
                 add_in_tab(th,c[cpt],bp);
                 cpt++;
-                //add_in_table(bp,th)...
             }
             enlever_bits(bp);
             gauche=0;

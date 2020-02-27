@@ -24,6 +24,8 @@ void destruction_element(Element **e)
 
 ///////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////
+
 THuffman_elt* create_elt(char c,BinaryPath *bp)
 {
     THuffman_elt *elt=(THuffman_elt*)malloc(sizeof(THuffman_elt));

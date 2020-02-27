@@ -142,10 +142,9 @@ void ecrire_binary_path(char c,T_huffman *th,FILE *outfile,unsigned char *buffer
             for(int i=0;i<actuel->code.longueur;i++)
             {
                 if(actuel->code.Bcode[i]=='1')
-                    {*buffer=(*buffer<<1) | 1;}
+                    *buffer=(*buffer<<1) | 1;
                 else
-                    {*buffer=(*buffer<<1) | 0;}
-
+                    *buffer=(*buffer<<1) | 0;
                 *taille=*taille+1;
                 //L'octet est rempli, on vide le buffer
                 if(*taille==8)
@@ -168,10 +167,8 @@ void compresser_texte(FILE *entry,T_huffman *th,FILE *outfile)
     char c=fgetc(entry);
     while(c!=EOF)
     {
-        //printf("%c",c);
         ecrire_binary_path(c,th,outfile,&buffer,&taille_buffer);
         c=fgetc(entry);
-
     }
     //Ecrire ce qu'il reste dans le buffer et le vider
     buffer=(buffer<<8-taille_buffer);
