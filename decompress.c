@@ -5,7 +5,6 @@
 #include "binarypath.h"
 #include "liste.h"
 
-
 int recherche_mot(BinaryPath *mot,T_huffman *th,FILE *out)
 {
     THuffman_elt *actuel=th->first;

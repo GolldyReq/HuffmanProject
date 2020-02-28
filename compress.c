@@ -170,14 +170,17 @@ void compress_file(char *file){
     fprintf(f,"%d\n",gr);
 
     //ecriture nombre de caractere different
+    printf("ecriture entete....\n");
     int nb_car=nb_feuille(l->first->abr);
     unsigned char i=nb_car;
     fprintf(f,"%d\n",i);
 
     //ecriture des caractere
+    printf("ecriture des caractere...\n");
     ecrire_caractere(l->first->abr,f);
 
     //ecriture du parcours de l'arbre
+    printf("ecriture du parcours de l'arbre....\n");
     ecriture_parcours(l->first->abr,f);
 
     //Creation table de huffman
@@ -189,7 +192,9 @@ void compress_file(char *file){
     //afficher_tableau_huffman(tableau_h);
 
     //Compression du texte
+    printf("compression du texte....\n");
     compresser_texte(fic,tableau_h,f);
+    printf("Fin de la compression !\n");
 
     //Liberation de la memoire
     //printf("avant suppr: %d\n",l->first->abr->freq);
