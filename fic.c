@@ -6,7 +6,7 @@
 
 FILE* ouverture_fichier(char *file_name)
 {
-    printf("Ouverture du fichier %s \n",file_name);
+    //printf("Ouverture du fichier %s \n",file_name);
     FILE *f=fopen(file_name, "r+b");
     if(f==NULL)
     {
@@ -18,7 +18,7 @@ FILE* ouverture_fichier(char *file_name)
 
 FILE* creation_fichier(char *file_name)
 {
-    printf("Ouverture du fichier %s \n",file_name);
+    //printf("Ouverture du fichier %s \n",file_name);
     FILE *f=fopen(file_name, "w");
     if(f==NULL)
     {
@@ -31,11 +31,7 @@ FILE* creation_fichier(char *file_name)
 void fermeture_fichier(FILE *fic)
 {
     //Evaluation du code de retour de fclose()
-    if(!fclose(fic))
-    {
-        printf("Fermeture du fichier : OK\n");
-    }
-    else
+    if(fclose(fic))
     {
         fprintf(stderr,"erreur lors de la fermeture\n");
         exit(-2);

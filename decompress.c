@@ -14,14 +14,12 @@ int recherche_mot(BinaryPath *mot,T_huffman *th,FILE *out)
         if(egalite_bp(mot,&actuel->code))
         {
             printf("%c",actuel->car,actuel->car);
-            //fwrite(actuel->car,1,1,out);
             fprintf(out,"%c",actuel->car);
             return 1;
         }
         actuel=actuel->next;
     }
     return 0;
-
 }
 
 void traduction_bp(T_huffman *th,BinaryPath *binaire,char* nb)
@@ -33,7 +31,6 @@ void traduction_bp(T_huffman *th,BinaryPath *binaire,char* nb)
     BinaryPath *mot=newBinaryPath();
     int lettre_trouve=0;
     int i=0;
-    printf("NOMBRE DE LETTRE A TROUVER : %d\n",objectif);
     while(i<binaire->longueur)
     {
         ajout_bits(mot,binaire->Bcode[i]);
@@ -43,8 +40,6 @@ void traduction_bp(T_huffman *th,BinaryPath *binaire,char* nb)
             if(recherche_mot(mot,th,out))
             {
                 lettre_trouve++;
-                //Bug chelou texte long
-                //printf("<- lettre : %d\n",lettre_trouve);
                 while(mot->longueur!=0)
                     enlever_bits(mot);
             }
@@ -53,19 +48,15 @@ void traduction_bp(T_huffman *th,BinaryPath *binaire,char* nb)
     }
     if(!zero(mot))
     {
-        afficher_BinaryPath(mot);
-        printf("\nvidage de ce buffer de merde\n");
-        BinaryPath *jsp=newBinaryPath();
+        BinaryPath *last=newBinaryPath();
         for(int i=0;i<mot->longueur;i++)
         {
-            ajout_bits(jsp,mot->Bcode[i]);
-            if(recherche_mot(jsp,th,out))
+            ajout_bits(last,mot->Bcode[i]);
+            if(recherche_mot(last,th,out))
             {
-                printf("\n mot trouve \n");
-                while(jsp->longueur!=0)
-                    {enlever_bits(jsp);
-                    enlever_premier_bits(mot);
-                    afficher_BinaryPath(mot);}
+                while(last->longueur!=0)
+                    {enlever_bits(last);
+                    enlever_premier_bits(mot);}
             }
         }
     }
@@ -97,14 +88,13 @@ void decompress_file(char *file)
 {
     FILE *fic=NULL;
     fic=ouverture_fichier(file);
-    int nb_car_total;
     rewind(fic);
-    //print
     char *nb_caractere_total,*nb_feuille;
     nb_caractere_total=(char*)malloc(10*sizeof(char));
     nb_feuille=(char*)malloc(3*sizeof(char));
     fgets(nb_caractere_total,8,fic);
     fgets(nb_feuille,3,fic);
+    //A mettre en argument
     //printf("nb de caractere au total : %s\n",nb_caractere_total);
     //printf("nb de feuille : %s\n",nb_feuille);
     if(atoi(nb_feuille)>=10)
@@ -128,8 +118,11 @@ void decompress_file(char *file)
         strcat(c,d);
         c[strlen(c)-2]='\0';
     }
+    //A screen pour montrer la chaine recuperer et l'utilite du code au dessus !
+    /*
     for(int p=0;p<strlen(c);p++)
         printf("%d,",c[p]);
+    */
 
 
     char *line=(char*)malloc(500*sizeof(char));
@@ -143,10 +136,13 @@ void decompress_file(char *file)
     //printf("\n\n chemin de l'arbre :");
     //afficher_BinaryPath(chemin_arbre);
 
+    //Construction table de Huffman
     T_huffman *table_h=reconstruction_arbre(chemin_arbre,c);
     afficher_tableau_huffman(table_h);
+    printf("\n");
     unsigned char buffer=0;
     BinaryPath *binaire=newBinaryPath();
+    //recuperation de l'encodage binaire du fichier
     while (fread(&buffer,1,1,fic) == 1) {
         stocker_dans_le_bp(buffer,binaire);
     }
@@ -158,5 +154,4 @@ void decompress_file(char *file)
     printf("\n");
 
     fermeture_fichier(fic);
-
 }
