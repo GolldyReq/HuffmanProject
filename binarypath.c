@@ -108,6 +108,6 @@ int zero(BinaryPath *bp)
         if(bp->Bcode[i]=='1')
             return 0;
     }
-    return 0;
+    return 1;
 
 }

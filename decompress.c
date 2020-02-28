@@ -53,6 +53,7 @@ void traduction_bp(T_huffman *th,BinaryPath *binaire,char* nb)
     }
     if(!zero(mot))
     {
+        afficher_BinaryPath(mot);
         printf("\nvidage de ce buffer de merde\n");
         BinaryPath *jsp=newBinaryPath();
         for(int i=0;i<mot->longueur;i++)
@@ -98,7 +99,7 @@ void decompress_file(char *file)
     fic=ouverture_fichier(file);
     int nb_car_total;
     rewind(fic);
-
+    //print
     char *nb_caractere_total,*nb_feuille;
     nb_caractere_total=(char*)malloc(10*sizeof(char));
     nb_feuille=(char*)malloc(3*sizeof(char));
