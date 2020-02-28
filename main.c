@@ -10,6 +10,7 @@
 /!\IMPORTANT/!\
 Utilisation du projet :
 1er argument : compress OU decompress   /!\OBLIGATOIRE/!\
+               l'argument both compress et decompresse le fichier
 2e argument : nom du fichier (en .txt si compress et .hf si decompress) /!\OBLIGATOIRE/!\
 3e argument : -w (write) -> ecrit la decompression dans un fichier txt au lieu de l'afficher sur la console (optionnel)
 4e argument : nomfichier -> seulement si l'argument -w est demandé, par défault -> decompress.txt (optionnel)
@@ -28,7 +29,7 @@ int main(int nbarg,char **argv)
         fprintf(stderr,"veuillez saisir au moins 2 arguments\n");
         exit(-1);
     }
-
+    //compression + decompression
     if(strcmp(argv[1],"both")==0)
     {
         compress_file(argv[2]);
@@ -54,9 +55,6 @@ int main(int nbarg,char **argv)
         printf("lancement de la decompression du fichier %s ....\n",argv[2]);
         decompress_file(argv[2]);
     }
-    //char file[456]="test.txt";
-    //compress_file(file);
-    //decompress_file("test.txt.hf");
     return 0;
 
 

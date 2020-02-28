@@ -5,21 +5,13 @@
 #include "arbre.h"
 #include "liste.h"
 
+//Ouverture / Fermeture de fichier
 FILE* ouverture_fichier(char* file_name);
 FILE* creation_fichier(char *file_name);
 void fermeture_fichier(FILE *fic);
 
-//Ecriture dans un fichier
-void ecriture_taille(FILE *f,int *taille);
-int nombre_caractere(FILE *f);
-void ecrire_caractere(Arbre *abr,FILE *f);
-void ecriture_parcours(Arbre *abr,FILE *f);
-void compresser_texte(FILE *fic,T_huffman *tableau_h,FILE *f);
-
-
 //Lecture dans un fichier
 void calcul_occurence(FILE *fic,int *tab);
-
-
+int nombre_caractere(FILE *f);
 
 #endif // FIC_H_INCLUDED

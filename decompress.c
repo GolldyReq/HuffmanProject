@@ -6,14 +6,16 @@
 #include "liste.h"
 
 
-int recherche_mot(BinaryPath *mot,T_huffman *th)
+int recherche_mot(BinaryPath *mot,T_huffman *th,FILE *out)
 {
     THuffman_elt *actuel=th->first;
     while(actuel!=NULL)
     {
         if(egalite_bp(mot,&actuel->code))
         {
-            printf("%c",actuel->car);
+            printf("%c",actuel->car,actuel->car);
+            //fwrite(actuel->car,1,1,out);
+            fprintf(out,"%c",actuel->car);
             return 1;
         }
         actuel=actuel->next;
@@ -24,6 +26,9 @@ int recherche_mot(BinaryPath *mot,T_huffman *th)
 
 void traduction_bp(T_huffman *th,BinaryPath *binaire,char* nb)
 {
+    FILE *out=fopen("decompression.txt","w+b");
+    if(out==NULL)
+        exit(-32);
     int objectif=atoi(nb);
     BinaryPath *mot=newBinaryPath();
     int lettre_trouve=0;
@@ -31,18 +36,39 @@ void traduction_bp(T_huffman *th,BinaryPath *binaire,char* nb)
     printf("NOMBRE DE LETTRE A TROUVER : %d\n",objectif);
     while(i<binaire->longueur)
     {
+        ajout_bits(mot,binaire->Bcode[i]);
         if(lettre_trouve<objectif)
         {
-            ajout_bits(mot,binaire->Bcode[i]);
-            if(recherche_mot(mot,th))
+            //ajout_bits(mot,binaire->Bcode[i]);
+            if(recherche_mot(mot,th,out))
             {
                 lettre_trouve++;
+                //Bug chelou texte long
+                //printf("<- lettre : %d\n",lettre_trouve);
                 while(mot->longueur!=0)
                     enlever_bits(mot);
             }
         }
         i++;
     }
+    if(!zero(mot))
+    {
+        printf("\nvidage de ce buffer de merde\n");
+        BinaryPath *jsp=newBinaryPath();
+        for(int i=0;i<mot->longueur;i++)
+        {
+            ajout_bits(jsp,mot->Bcode[i]);
+            if(recherche_mot(jsp,th,out))
+            {
+                printf("\n mot trouve \n");
+                while(jsp->longueur!=0)
+                    {enlever_bits(jsp);
+                    enlever_premier_bits(mot);
+                    afficher_BinaryPath(mot);}
+            }
+        }
+    }
+    fclose(out);
 }
 
 void stocker_dans_le_bp(unsigned char buffer,BinaryPath *binaire)
@@ -82,60 +108,50 @@ void decompress_file(char *file)
     //printf("nb de feuille : %s\n",nb_feuille);
     if(atoi(nb_feuille)>=10)
         fseek(fic,2,SEEK_CUR);
+    /*pasur*/
+    else
+        fseek(fic,1,SEEK_CUR);
 
     char c[atoi(nb_feuille)];
     //remplacer par une boucle for en gerant le '\n'
 
     //Prendre des screens test pour expliquer dans le rapport
+    int nb_ligne_entete=0;
     fgets(c,128,fic);
-    //if(strlen(c)<atoi(nb_feuille))
     while(strlen(c)<atoi(nb_feuille))
     {
-        printf("avant : %d\n",strlen(c));
         c[strlen(c)-1]='\0';
-        printf("apres : %d\n",strlen(c));
-
-        //c[strlen(c)-1]=(char)10;
+        c[strlen(c)-1]=(char)10;
         char d[atoi(nb_feuille)];
         fgets(d,128,fic);
-        //for(int i=0;i<strlen(d);i++)
-            //printf("-->%d",d[i]);
         strcat(c,d);
         c[strlen(c)-2]='\0';
     }
-    printf("cece : %s",c);
-    //printf("voici les caractere lu :%s\n",c);
-    //printf("taille lu :%d\n",strlen(c));
-    //for(int i=0;i<strlen(c);i++)
-        //printf("->%d",c[i]);
+    for(int p=0;p<strlen(c);p++)
+        printf("%d,",c[p]);
 
-    printf("\n");
 
     char *line=(char*)malloc(500*sizeof(char));
     fgets(line,500,fic);
-    //printf("Chemin arbre :::: %s",line);
     BinaryPath *chemin_arbre=newBinaryPath();
     for(int i=0;i<strlen(line)-1;i++)
         ajout_bits(chemin_arbre,line[i]);
 
 
 
-    printf("\n\n chemin de l'arbre :");
-    afficher_BinaryPath(chemin_arbre);
+    //printf("\n\n chemin de l'arbre :");
+    //afficher_BinaryPath(chemin_arbre);
 
     T_huffman *table_h=reconstruction_arbre(chemin_arbre,c);
-    //afficher_tableau_huffman(table_h);
+    afficher_tableau_huffman(table_h);
     unsigned char buffer=0;
     BinaryPath *binaire=newBinaryPath();
     while (fread(&buffer,1,1,fic) == 1) {
         stocker_dans_le_bp(buffer,binaire);
     }
+
+    //le texte compressé en binaire
     //afficher_BinaryPath(binaire);
-
-
-    BinaryPath *mot_tmp=newBinaryPath();
-    ajout_bits(mot_tmp,'0');
-    ajout_bits(mot_tmp,'0');
 
     traduction_bp(table_h,binaire,nb_caractere_total);
     printf("\n");

@@ -100,3 +100,14 @@ int egalite_bp(BinaryPath *a , BinaryPath *b)
     }
     return 1;
 }
+
+int zero(BinaryPath *bp)
+{
+    for(int i=0;i<bp->longueur;i++)
+    {
+        if(bp->Bcode[i]=='1')
+            return 0;
+    }
+    return 0;
+
+}
